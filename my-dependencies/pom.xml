@@ -25,7 +25,6 @@
 		<commons-lang3.version>3.11</commons-lang3.version>
 		<commons-text.version>1.9</commons-text.version>
 		<commons-math3.version>3.6.1</commons-math3.version>
-		<plexus-utils.version>3.3.0</plexus-utils.version>
 		<junit-jupiter.version>5.7.0</junit-jupiter.version>
 		<mockito.version>3.5.13</mockito.version>
 
@@ -82,11 +81,6 @@
 				<groupId>com.google.guava</groupId>
 				<artifactId>guava</artifactId>
 				<version>${guava.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.codehaus.plexus</groupId>
-				<artifactId>plexus-utils</artifactId>
-				<version>${plexus-utils.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.logging.log4j</groupId>
