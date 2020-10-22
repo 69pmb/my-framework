@@ -21,7 +21,6 @@ import java.util.zip.ZipOutputStream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.codehaus.plexus.util.FileUtils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -45,8 +44,9 @@ public final class MyFileUtils {
      * @param nomDir le chemin du dossier
      */
     public static void createFolderIfNotExists(String nomDir) {
-        if (!FileUtils.fileExists(nomDir)) {
-            FileUtils.mkdir(nomDir);
+        File dir = new File(nomDir);
+        if (!dir.exists()) {
+            dir.mkdir();
         }
     }
 
@@ -137,7 +137,7 @@ public final class MyFileUtils {
      */
     public static File zipFile(File file) throws MajorException {
         LOG.debug("Start zipFiles");
-        String zipName = file.getParent() + FileUtils.FS + StringUtils.substringBeforeLast(file.getName(), ".")
+        String zipName = file.getParent() + MyConstant.FS + StringUtils.substringBeforeLast(file.getName(), MyConstant.DOT)
         + ".zip";
         try (FileOutputStream fos = new FileOutputStream(zipName);
                 ZipOutputStream zipOut = new ZipOutputStream(fos);
