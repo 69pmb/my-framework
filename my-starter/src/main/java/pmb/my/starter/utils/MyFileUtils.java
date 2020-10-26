@@ -1,6 +1,5 @@
 package pmb.my.starter.utils;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -60,19 +59,33 @@ public final class MyFileUtils {
      */
     public static List<File> listFilesInFolder(final File folder, String extension, boolean recursive) {
         List<File> result = new ArrayList<>();
-        listFilesForFolder(folder, result, extension, recursive);
+        listFilesForFolder(folder, result, List.of(extension), recursive);
         return result;
     }
 
-    private static void listFilesForFolder(final File folder, List<File> files, String extension, boolean recursive) {
+    /**
+     * Recovers the list of files contained in a folder.
+     *
+     * @param folder directory containing files
+     * @param extensions list of extension of files to research
+     * @param recursive if the search is recursive or not
+     * @return a list of files
+     */
+    public static List<File> listFilesInFolder(final File folder, List<String> extensions, boolean recursive) {
+        List<File> result = new ArrayList<>();
+        listFilesForFolder(folder, result, extensions, recursive);
+        return result;
+    }
+
+    private static void listFilesForFolder(final File folder, List<File> files, List<String> extensions, boolean recursive) {
         if (!folder.isDirectory()) {
             files.add(folder);
             return;
         }
         for (final File fileEntry : folder.listFiles()) {
             if (recursive && fileEntry.isDirectory()) {
-                listFilesForFolder(fileEntry, files, extension, recursive);
-            } else if (StringUtils.endsWith(fileEntry.getName(), extension)) {
+                listFilesForFolder(fileEntry, files, extensions, recursive);
+            } else if (extensions.stream().anyMatch(extension -> StringUtils.endsWithIgnoreCase(fileEntry.getName(), extension))) {
                 files.add(fileEntry);
             }
         }
@@ -81,7 +94,7 @@ public final class MyFileUtils {
     /**
      * Export an object to json in a file.
      *
-     * @param o the object to export
+     * @param o        the object to export
      * @param filePath the absolute path of the file
      */
     public static void exportJsonInFile(Object o, String filePath) {
@@ -137,8 +150,8 @@ public final class MyFileUtils {
      */
     public static File zipFile(File file) throws MajorException {
         LOG.debug("Start zipFiles");
-        String zipName = file.getParent() + MyConstant.FS + StringUtils.substringBeforeLast(file.getName(), MyConstant.DOT)
-        + ".zip";
+        String zipName = file.getParent() + MyConstant.FS
+                + StringUtils.substringBeforeLast(file.getName(), MyConstant.DOT) + ".zip";
         try (FileOutputStream fos = new FileOutputStream(zipName);
                 ZipOutputStream zipOut = new ZipOutputStream(fos);
                 FileInputStream fis = new FileInputStream(file)) {
@@ -158,7 +171,8 @@ public final class MyFileUtils {
 
     /**
      * Reads completely the given file.
-     * @param file to read
+     *
+     * @param file        to read
      * @param charsetName encoding
      * @return a list of String
      */
@@ -172,6 +186,7 @@ public final class MyFileUtils {
 
     /**
      * Reads completely the given file with {@code ANSI} default encoding.
+     *
      * @param file path of the file to read
      * @return a list of String
      */
@@ -181,6 +196,7 @@ public final class MyFileUtils {
 
     /**
      * Reads completely the given file with {@code ANSI} default encoding.
+     *
      * @param file to read
      * @return a list of String
      */
@@ -190,8 +206,9 @@ public final class MyFileUtils {
 
     /**
      * Writes in given file the given content.
-     * @param file to write into
-     * @param lines content to write
+     *
+     * @param file        to write into
+     * @param lines       content to write
      * @param charsetName encoding
      */
     public static void writeFile(File file, List<String> lines, String charsetName) {
@@ -204,7 +221,8 @@ public final class MyFileUtils {
 
     /**
      * Writes in given file the given content with {@code ANSI} default encoding.
-     * @param file path of the file to write into
+     *
+     * @param file  path of the file to write into
      * @param lines content to write
      */
     public static void writeFile(String file, List<String> lines) {
@@ -213,7 +231,8 @@ public final class MyFileUtils {
 
     /**
      * Writes in given file the given content with {@code ANSI} default encoding.
-     * @param file to write into
+     *
+     * @param file  to write into
      * @param lines content to write
      */
     public static void writeFile(File file, List<String> lines) {
