@@ -8,9 +8,11 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -94,7 +96,7 @@ public final class MyFileUtils {
     /**
      * Export an object to json in a file.
      *
-     * @param o        the object to export
+     * @param o the object to export
      * @param filePath the absolute path of the file
      */
     public static void exportJsonInFile(Object o, String filePath) {
@@ -125,7 +127,21 @@ public final class MyFileUtils {
      * @param file the file of which the creation date is wanted
      * @return the creation date, now if error
      */
-    public static LocalDateTime getCreationDate(File file) {
+    public static LocalDateTime getCreationLocalDate(File file) {
+        return LocalDateTime.ofInstant(getCreationInstant(file), ZoneId.systemDefault());
+    }
+
+    /**
+     * Recovers the creation date of the given file.
+     *
+     * @param file the file of which the creation date is wanted
+     * @return the creation date, now if error
+     */
+    public static Date getCreationDate(File file) {
+        return Date.from(getCreationInstant(file));
+    }
+
+    private static Instant getCreationInstant(File file) {
         LOG.debug("Start getCreationDate");
         BasicFileAttributes attr = null;
         try {
@@ -134,11 +150,9 @@ public final class MyFileUtils {
             LOG.error("Impossible de récupérer la date de création de {}", file.getAbsolutePath(), e);
         }
         if (attr == null) {
-            return LocalDateTime.now();
+            return Instant.now();
         }
-        LocalDateTime creationDate = LocalDateTime.ofInstant(attr.creationTime().toInstant(), ZoneId.systemDefault());
-        LOG.debug("End getCreationDate");
-        return creationDate;
+        return attr.creationTime().toInstant();
     }
 
     /**
@@ -150,8 +164,7 @@ public final class MyFileUtils {
      */
     public static File zipFile(File file) throws MajorException {
         LOG.debug("Start zipFiles");
-        String zipName = file.getParent() + MyConstant.FS
-                + StringUtils.substringBeforeLast(file.getName(), MyConstant.DOT) + ".zip";
+        String zipName = file.getParent() + MyConstant.FS + StringUtils.substringBeforeLast(file.getName(), MyConstant.DOT) + ".zip";
         try (FileOutputStream fos = new FileOutputStream(zipName);
                 ZipOutputStream zipOut = new ZipOutputStream(fos);
                 FileInputStream fis = new FileInputStream(file)) {
@@ -172,7 +185,7 @@ public final class MyFileUtils {
     /**
      * Reads completely the given file.
      *
-     * @param file        to read
+     * @param file to read
      * @param charsetName encoding
      * @return a list of String
      */
@@ -207,8 +220,8 @@ public final class MyFileUtils {
     /**
      * Writes in given file the given content.
      *
-     * @param file        to write into
-     * @param lines       content to write
+     * @param file to write into
+     * @param lines content to write
      * @param charsetName encoding
      */
     public static void writeFile(File file, List<String> lines, String charsetName) {
@@ -222,7 +235,7 @@ public final class MyFileUtils {
     /**
      * Writes in given file the given content with {@code ANSI} default encoding.
      *
-     * @param file  path of the file to write into
+     * @param file path of the file to write into
      * @param lines content to write
      */
     public static void writeFile(String file, List<String> lines) {
@@ -232,10 +245,11 @@ public final class MyFileUtils {
     /**
      * Writes in given file the given content with {@code ANSI} default encoding.
      *
-     * @param file  to write into
+     * @param file to write into
      * @param lines content to write
      */
     public static void writeFile(File file, List<String> lines) {
         writeFile(file, lines, MyConstant.ANSI_ENCODING);
     }
+
 }
