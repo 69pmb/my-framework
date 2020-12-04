@@ -1,6 +1,5 @@
 package pmb.my.starter.utils;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,7 +36,7 @@ public final class MyProperties {
      */
     private static void load() {
         LOG.debug("Start loadProperties");
-        try (InputStream input = new FileInputStream(MyConstant.getConfigPath())) {
+        try (InputStream input = MyConstant.getConfigStream()) {
             prop = new Properties();
             prop.load(input);
             get(LEVEL_KEY).ifPresent(VariousUtils::setLogLevel);
@@ -97,8 +96,8 @@ public final class MyProperties {
      * Saves properties in configuration file.
      */
     public static void save() {
-        try (FileOutputStream configFile = new FileOutputStream(MyConstant.getConfigPath())) {
-            prop.store(configFile, null);
+        try (FileOutputStream out = new FileOutputStream(MyConstant.getConfigPath(), false)) {
+            prop.store(out, null);
         } catch (IOException e) {
             throw new MinorException("Error when saving properties", e);
         }
