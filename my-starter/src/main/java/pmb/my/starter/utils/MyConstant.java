@@ -1,8 +1,12 @@
 package pmb.my.starter.utils;
 
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.text.DecimalFormat;
+import java.util.Optional;
 import java.util.regex.Pattern;
+
+import pmb.my.starter.exception.MinorException;
 
 /**
  * Constants class.
@@ -71,6 +75,14 @@ public final class MyConstant {
         return RESOURCES_DIRECTORY + CONFIGURATION_FILENAME;
     }
 
+    public static InputStream getConfigStream() {
+        return Optional.ofNullable(MyConstant.class.getClassLoader().getResourceAsStream(CONFIGURATION_FILENAME))
+                .orElseThrow(() -> new MinorException("Can't find property file"));
+    }
+
+    /**
+     * @return {@link MyConstant#FORBIDDEN_CHARACTERS_FILENAME}
+     */
     public static String[] getForbiddenCharactersFilename() {
         return FORBIDDEN_CHARACTERS_FILENAME;
     }

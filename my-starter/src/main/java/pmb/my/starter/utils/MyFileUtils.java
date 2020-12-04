@@ -23,8 +23,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import pmb.my.starter.exception.MajorException;
 import pmb.my.starter.exception.MinorException;
 
@@ -91,24 +89,6 @@ public final class MyFileUtils {
                 files.add(fileEntry);
             }
         }
-    }
-
-    /**
-     * Export an object to json in a file.
-     *
-     * @param o the object to export
-     * @param filePath the absolute path of the file
-     */
-    public static void exportJsonInFile(Object o, String filePath) {
-        LOG.debug("Start exportJsonInFile");
-        String json = "";
-        try {
-            json = VariousUtils.writeValueAsString(o);
-        } catch (JsonProcessingException e) {
-            LOG.error("Error when converting object to json", e);
-        }
-        writeFile(filePath, List.of(json));
-        LOG.debug("End exportJsonInFile");
     }
 
     /**
