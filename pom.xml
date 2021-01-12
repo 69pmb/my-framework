@@ -14,4 +14,11 @@
         <module>my-starter</module>
     </modules>
 
+	<scm>
+		<url>https://github.com/69pmb/My-Framework/</url>
+		<connection>scm:git:ssh://git@github.com/69pmb/My-Framework.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/69pmb/My-Framework.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
 </project>
