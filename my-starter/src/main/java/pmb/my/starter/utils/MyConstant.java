@@ -27,8 +27,7 @@ public final class MyConstant {
     /**
      * Chemin des resources de l'application.
      */
-    public static final String RESOURCES_DIRECTORY = USER_DIRECTORY + "src" + FS + "main" + FS
-            + "resources" + FS;
+    public static final String RESOURCES_DIRECTORY = USER_DIRECTORY + "src" + FS + "main" + FS + "resources" + FS;
 
     /**
      * Chemin abs du fichier de log.
@@ -74,8 +73,15 @@ public final class MyConstant {
         return RESOURCES_DIRECTORY + CONFIGURATION_FILENAME;
     }
 
-    public static InputStream getConfigStream() {
-        return Optional.ofNullable(MyConstant.class.getClassLoader().getResourceAsStream(CONFIGURATION_FILENAME))
+    /**
+     * Opens a resource file a stream.
+     *
+     * @param path the resource name
+     * @return An input stream for reading the resource, if not found throw a {@link MinorException}
+     * @see ClassLoader#getResourceAsStream(String)
+     */
+    public static InputStream getResourceAsStream(String path) {
+        return Optional.ofNullable(MyConstant.class.getClassLoader().getResourceAsStream(path))
                 .orElseThrow(() -> new MinorException("Can't find property file"));
     }
 
@@ -89,4 +95,5 @@ public final class MyConstant {
     public static DecimalFormat getDecimalFormat() {
         return DECIMAL_FORMAT;
     }
+
 }
