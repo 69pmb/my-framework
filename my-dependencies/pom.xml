@@ -24,7 +24,7 @@
         <commons-text.version>1.9</commons-text.version>
         <commons-math3.version>3.6.1</commons-math3.version>
         <junit-jupiter.version>5.7.2</junit-jupiter.version>
-        <mockito.version>3.11.2</mockito.version>
+        <mockito.version>3.12.1</mockito.version>
         <assertj.version>3.20.2</assertj.version>
 
         <!-- Build properties -->
