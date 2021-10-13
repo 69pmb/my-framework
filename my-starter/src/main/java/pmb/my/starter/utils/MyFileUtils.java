@@ -14,6 +14,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
@@ -53,13 +54,13 @@ public final class MyFileUtils {
      * Recovers the list of files contained in a folder.
      *
      * @param folder directory containing files
-     * @param extension extension of files to research
+     * @param extension extension of files to research, all files if null
      * @param recursive if the search is recursive or not
      * @return a list of files
      */
     public static List<File> listFilesInFolder(final File folder, String extension, boolean recursive) {
         List<File> result = new ArrayList<>();
-        listFilesForFolder(folder, result, List.of(extension), recursive);
+        listFilesForFolder(folder, result, Optional.ofNullable(extension).map(List::of).orElse(null), recursive);
         return result;
     }
 
@@ -67,7 +68,7 @@ public final class MyFileUtils {
      * Recovers the list of files contained in a folder.
      *
      * @param folder directory containing files
-     * @param extensions list of extension of files to research
+     * @param extensions list of extension of files to research, all files if null
      * @param recursive if the search is recursive or not
      * @return a list of files
      */
@@ -85,7 +86,8 @@ public final class MyFileUtils {
         for (final File fileEntry : folder.listFiles()) {
             if (recursive && fileEntry.isDirectory()) {
                 listFilesForFolder(fileEntry, files, extensions, recursive);
-            } else if (extensions.stream().anyMatch(extension -> StringUtils.endsWithIgnoreCase(fileEntry.getName(), extension))) {
+            } else if (extensions == null || extensions.isEmpty()
+                || extensions.stream().anyMatch(extension -> StringUtils.endsWithIgnoreCase(fileEntry.getName(), extension))) {
                 files.add(fileEntry);
             }
         }
