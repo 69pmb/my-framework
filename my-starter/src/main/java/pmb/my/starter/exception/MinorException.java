@@ -32,6 +32,15 @@ public class MinorException
     }
 
     /**
+     * Constructor with throwable.
+     *
+     * @param throwable error cause
+     *
+     * @see RuntimeException#RuntimeException(Throwable)
+     */
+    public MinorException(Throwable cause) {
+        super(cause);
+    }
 
     /**
      * Empty constructor.
