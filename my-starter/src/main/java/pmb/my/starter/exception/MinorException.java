@@ -3,33 +3,43 @@ package pmb.my.starter.exception;
 /**
  * Runtime exception of the application, for scarce or small exceptions.
  *
+ * @see RuntimeException
  */
-public class MinorException extends RuntimeException {
+public class MinorException
+    extends RuntimeException {
+
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructeur avec message.
+     * Constructor with message.
      *
-     * @param message le message d'erreur
+     * @param message error message
+     * @see RuntimeException#RuntimeException(String)
      */
     public MinorException(String message) {
         super(message);
     }
 
     /**
-     * Constructeur avec message et throwable.
+     * Constructor with message and throwable.
      *
-     * @param message le message d'erreur
-     * @param throwable la cause de l'erreur
+     * @param message error message
+     * @param throwable error cause
+     * @see RuntimeException#RuntimeException(String, Throwable)
      */
     public MinorException(String message, Throwable throwable) {
         super(message, throwable);
     }
 
     /**
-     * Constructeur parent vide.
+
+    /**
+     * Empty constructor.
+     *
+     * @see RuntimeException#RuntimeException()
      */
     public MinorException() {
         super();
     }
+
 }

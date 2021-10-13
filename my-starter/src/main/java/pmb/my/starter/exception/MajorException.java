@@ -3,33 +3,41 @@ package pmb.my.starter.exception;
 /**
  * Checked exception of the application, for usual or big exceptions.
  *
+ * @see Exception
  */
-public class MajorException extends Exception {
+public class MajorException
+    extends Exception {
+
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructeur avec message.
+     * Constructor with message.
      *
-     * @param message le message d'erreur
+     * @param message error message
+     * @see Exception#Exception(String)
      */
     public MajorException(String message) {
         super(message);
     }
 
     /**
-     * Constructeur avec message et throwable.
+     * Constructor with message and throwable.
      *
-     * @param message le message d'erreur
-     * @param throwable la cause de l'erreur
+     * @param message error message
+     * @param throwable error cause
+     * @see Exception#Exception(String, Throwable)
      */
     public MajorException(String message, Throwable throwable) {
         super(message, throwable);
     }
 
     /**
-     * Constructeur parent vide.
+     * Empty constructor.
+     *
+     * @see Exception#Exception()
      */
     public MajorException() {
         super();
     }
+
 }
