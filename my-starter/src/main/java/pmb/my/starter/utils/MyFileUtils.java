@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -200,7 +201,7 @@ public final class MyFileUtils {
     }
 
     /**
-     * Writes in given file the given content.
+     * Writes in given file the given content. The file is created if it doesn't exist.
      *
      * @param file to write into
      * @param lines content to write
@@ -208,7 +209,7 @@ public final class MyFileUtils {
      */
     public static void writeFile(File file, List<String> lines, String charsetName) {
         try {
-            Files.write(file.toPath(), lines, Charset.forName(charsetName));
+            Files.write(file.toPath(), lines, Charset.forName(charsetName), StandardOpenOption.CREATE);
         } catch (IOException e) {
             throw new MinorException("Error when writing in file: " + file.getAbsolutePath(), e);
         }
