@@ -16,10 +16,10 @@
     <properties>
         <!-- Dependencies version -->
         <commons-io.version>2.13.0</commons-io.version>
-        <commons-collections4.version>4.4</commons-collections4.version>
         <guava.version>31.1-jre</guava.version>
         <jackson.version>2.15.2</jackson.version>
         <log4j.version>2.20.0</log4j.version>
+        <commons-collections4.version>4.4</commons-collections4.version>
         <commons-lang3.version>3.13.0</commons-lang3.version>
         <commons-text.version>1.10.0</commons-text.version>
         <commons-math3.version>3.6.1</commons-math3.version>
@@ -29,8 +29,8 @@
         <assertj.version>3.24.2</assertj.version>
 
         <!-- Build properties -->
-        <java.version>11</java.version>
-        <maven.version>3.3.9</maven.version>
+        <java.version>17</java.version>
+        <maven.version>3.6.0</maven.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
@@ -41,11 +41,10 @@
         <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <maven-eclipse-plugin.version>2.10</maven-eclipse-plugin.version>
         <maven-enforcer-plugin.version>3.4.1</maven-enforcer-plugin.version>
-        <maven-javadoc-plugin.version>3.6.0</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
-        <git-code-format-maven-plugin.version>3.5</git-code-format-maven-plugin.version>
+        <git-code-format-maven-plugin.version>5.3</git-code-format-maven-plugin.version>
         <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
         <versions-maven-plugin.version>2.16.1</versions-maven-plugin.version>
 
@@ -180,22 +179,6 @@
         <pluginManagement>
             <plugins>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>${maven-javadoc-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <id>attach-javadocs</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <doclint>none</doclint>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>${versions-maven-plugin.version}</version>
@@ -246,6 +229,14 @@
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <!-- Enable https://github.com/google/google-java-format -->
+                    <dependency>
+                        <groupId>com.cosium.code</groupId>
+                        <artifactId>google-java-format</artifactId>
+                        <version>${git-code-format-maven-plugin.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
