@@ -17,7 +17,7 @@
         <!-- Dependencies version -->
         <commons-io.version>2.13.0</commons-io.version>
         <guava.version>31.1-jre</guava.version>
-        <jackson.version>2.15.2</jackson.version>
+        <jackson.version>2.18.2</jackson.version>
         <log4j.version>2.20.0</log4j.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-lang3.version>3.13.0</commons-lang3.version>
