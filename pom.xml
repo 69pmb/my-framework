@@ -3,7 +3,7 @@
 
     <groupId>pmb</groupId>
     <artifactId>my-framework</artifactId>
-    <version>0.3.0</version>
+    <version>0.4.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>My Framework</name>
 
@@ -16,7 +16,7 @@
         <url>https://github.com/69pmb/my-framework</url>
         <connection>scm:git:https://github.com/69pmb/my-framework.git</connection>
         <developerConnection>scm:git:https://github.com/69pmb/my-framework.git</developerConnection>
-        <tag>0.3.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
 </project>
